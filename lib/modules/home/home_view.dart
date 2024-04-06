@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fei_bookstore/core/values/colors.dart';
 import 'package:fei_bookstore/modules/home/home_controller.dart';
 import 'package:flutter/material.dart';
@@ -287,100 +289,62 @@ class HomeView extends GetView<HomeController> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: Get.height * 0.23,
-                        width: Get.width,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(right: 10),
-                              width: Get.width * 0.35,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.black26, width: 1),
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width: Get.width * 0.35,
-                                    height: Get.height * 0.16,
-                                    decoration: BoxDecoration(
-                                      color: softRed,
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(15),
-                                        topRight: Radius.circular(15),
+                      Obx(
+                        ()=> SizedBox(
+                          height: Get.height * 0.23,
+                          width: Get.width,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            itemCount: 7,
+                            itemBuilder: (BuildContext context, int index) {
+                              final book = controller.newBooks[index];
+
+                              return Container(
+                                margin: const EdgeInsets.only(right: 10),
+                                width: Get.width * 0.35,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(color: Colors.black26, width: 1),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width: Get.width * 0.35,
+                                      height: Get.height * 0.16,
+                                      decoration: BoxDecoration(
+                                        color: colors[Random().nextInt(colors.length)],
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(15),
+                                          topRight: Radius.circular(15),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Image.network(
+                                          book.image,
+                                          width: 150,
+                                          height: 150,
+                                        ),
                                       ),
                                     ),
-                                    child: Center(
-                                      child: Image.asset(
-                                        "assets/images/home/mobile_icon.png",
-                                        width: 100,
-                                        height: 100,
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                                      child: Text(
+                                        book.title,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                                    child: Text(
-                                      "Nabi Palsu",
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(right: 10),
-                              width: Get.width * 0.35,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.black26, width: 1),
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width: Get.width * 0.35,
-                                    height: Get.height * 0.16,
-                                    decoration: BoxDecoration(
-                                      color: softBrown,
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(15),
-                                        topRight: Radius.circular(15),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Image.asset(
-                                        "assets/images/home/mobile_icon.png",
-                                        width: 100,
-                                        height: 100,
-                                      ),
-                                    ),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                                    child: Text(
-                                      "Iya, sebentar",
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
