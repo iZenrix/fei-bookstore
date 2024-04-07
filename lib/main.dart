@@ -1,10 +1,9 @@
-import 'package:fei_bookstore/modules/home/home_view.dart';
+import 'package:fei_bookstore/modules/navbar/navbar_binding.dart';
 import 'package:fei_bookstore/routes/app_pages.dart';
 import 'package:fei_bookstore/routes/route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'modules/home/home_binding.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,9 +22,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       getPages: appPages,
-      initialRoute: RouteName.homeView,
-      initialBinding: HomeBinding(),
-      home: const HomeView(),
+      initialRoute: RouteName.navbar,
+      initialBinding: NavbarBinding(),
     );
   }
 }

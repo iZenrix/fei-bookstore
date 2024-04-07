@@ -38,6 +38,10 @@ dependencies:
   get: ^4.6.6
   syncfusion_flutter_pdfviewer: ^25.1.38
   http: ^1.2.1
+  shimmer: ^3.0.0
+  persistent_bottom_nav_bar: ^5.0.2
+  sliding_up_panel: ^2.0.0+1
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:

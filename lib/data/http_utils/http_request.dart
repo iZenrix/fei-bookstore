@@ -45,6 +45,7 @@ abstract class HttpCustomRequest with HttpResponseHandlerMixin {
       default:
         throw Exception('Unsupported HTTP method: $method');
     }
+
     handleResponse(apiResponse, response);
 
     return apiResponse;

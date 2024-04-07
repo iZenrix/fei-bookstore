@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:fei_bookstore/core/values/colors.dart';
 import 'package:fei_bookstore/modules/home/home_controller.dart';
+import 'package:fei_bookstore/modules/home/widgets/book_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -161,13 +162,13 @@ class HomeView extends GetView<HomeController> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                   child: Column(
                     children: [
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Recommended for you",
+                          "Recommended For You",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 17,
@@ -175,101 +176,78 @@ class HomeView extends GetView<HomeController> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: Get.height * 0.23,
-                        width: Get.width,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(right: 10),
-                              width: Get.width * 0.35,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.black26, width: 1),
+                      Obx(
+                        () => controller.recommendedBooks.isEmpty
+                            ? const BookShimmer()
+                            : SizedBox(
+                                height: Get.height * 0.23,
+                                width: Get.width,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  itemCount: controller.recommendedBooks.length >= 7
+                                      ? 7
+                                      : controller.recommendedBooks.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    final book = controller.recommendedBooks[index];
+
+                                    return Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      width: Get.width * 0.35,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(15),
+                                        border: Border.all(
+                                            color: Colors.black26, width: 1),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            width: Get.width * 0.35,
+                                            height: Get.height * 0.16,
+                                            decoration: BoxDecoration(
+                                              color: colors[Random()
+                                                  .nextInt(colors.length)],
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(15),
+                                                topRight: Radius.circular(15),
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Image.network(
+                                                loadingBuilder: (context, child,
+                                                        loadingProgress) =>
+                                                    loadingProgress == null
+                                                        ? child
+                                                        : const CircularProgressIndicator(),
+                                                book.image,
+                                                width: 150,
+                                                height: 150,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 8, horizontal: 5),
+                                            child: Text(
+                                              book.title,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width: Get.width * 0.35,
-                                    height: Get.height * 0.16,
-                                    decoration: BoxDecoration(
-                                      color: beige,
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(15),
-                                        topRight: Radius.circular(15),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Image.asset(
-                                        "assets/images/home/mobile_icon.png",
-                                        width: 100,
-                                        height: 100,
-                                      ),
-                                    ),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                                    child: Text(
-                                      "Membasuh",
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(right: 10),
-                              width: Get.width * 0.35,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.black26, width: 1),
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width: Get.width * 0.35,
-                                    height: Get.height * 0.16,
-                                    decoration: BoxDecoration(
-                                      color: softPurple,
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(15),
-                                        topRight: Radius.circular(15),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Image.asset(
-                                        "assets/images/home/mobile_icon.png",
-                                        width: 100,
-                                        height: 100,
-                                      ),
-                                    ),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                                    child: Text(
-                                      "Evakuasi",
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
                     ],
                   ),
@@ -290,62 +268,77 @@ class HomeView extends GetView<HomeController> {
                         ),
                       ),
                       Obx(
-                        ()=> SizedBox(
-                          height: Get.height * 0.23,
-                          width: Get.width,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            itemCount: 7,
-                            itemBuilder: (BuildContext context, int index) {
-                              final book = controller.newBooks[index];
+                        () => controller.newBooks.isEmpty
+                            ? const BookShimmer()
+                            : SizedBox(
+                                height: Get.height * 0.23,
+                                width: Get.width,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  itemCount: controller.newBooks.length >= 7
+                                      ? 7
+                                      : controller.newBooks.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    final book = controller.newBooks[index];
 
-                              return Container(
-                                margin: const EdgeInsets.only(right: 10),
-                                width: Get.width * 0.35,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(color: Colors.black26, width: 1),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
+                                    return Container(
+                                      margin: const EdgeInsets.only(right: 10),
                                       width: Get.width * 0.35,
-                                      height: Get.height * 0.16,
                                       decoration: BoxDecoration(
-                                        color: colors[Random().nextInt(colors.length)],
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(15),
-                                          topRight: Radius.circular(15),
-                                        ),
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(15),
+                                        border: Border.all(
+                                            color: Colors.black26, width: 1),
                                       ),
-                                      child: Center(
-                                        child: Image.network(
-                                          book.image,
-                                          width: 150,
-                                          height: 150,
-                                        ),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            width: Get.width * 0.35,
+                                            height: Get.height * 0.16,
+                                            decoration: BoxDecoration(
+                                              color: colors[Random()
+                                                  .nextInt(colors.length)],
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(15),
+                                                topRight: Radius.circular(15),
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Image.network(
+                                                loadingBuilder: (context, child,
+                                                        loadingProgress) =>
+                                                    loadingProgress == null
+                                                        ? child
+                                                        : const CircularProgressIndicator(),
+                                                book.image,
+                                                width: 150,
+                                                height: 150,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 8, horizontal: 5),
+                                            child: Text(
+                                              book.title,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                                      child: Text(
-                                        book.title,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                    );
+                                  },
                                 ),
-                              );
-                            },
-                          ),
-                        ),
+                              ),
                       ),
                     ],
                   ),
