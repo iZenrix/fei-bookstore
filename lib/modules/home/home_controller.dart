@@ -33,7 +33,7 @@ class HomeController extends GetxController{
   Future<void> getRecommendedBooks() async {
     ApiResponse response = ApiResponse();
     try {
-      response = await BookService().getBooksBySearch();
+      response = await BookService().getBooksBySearch("flutter");
       if (response.isResponseSuccess()) {
         var book = response.data as List<dynamic>;
         recommendedBooks.assignAll(book.map((e) => Book.fromJson(e)).toList());

@@ -5,8 +5,8 @@ import '../models/api_response.dart';
 import 'package:http/http.dart' as http;
 
 class BookService extends HttpCustomRequest {
-  Future<ApiResponse> getBooksBySearch() async {
-    return sendRequest(url: "$searchBookUrl/flutter", method: 'GET');
+  Future<ApiResponse> getBooksBySearch(String content) async {
+    return sendRequest(url: "$searchBookUrl/$content", method: 'GET');
   }
 
   Future<ApiResponse> getNewBooks() async {
